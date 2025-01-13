@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>crisp-dream</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #1b2838;
+				color: #c7d5e0;
+			}
+
+			header {
+				background-color: #171a21;
+				padding: 15px;
+				text-align: center;
+				border-bottom: 1px solid #c7d5e0;
+			}
+
+			header h1 {
+				font-size: 1.8rem;
+				color: #fff;
+			}
+
+			.container {
+				display: flex;
+				height: calc(100vh - 70px);
+			}
+
+			.sidebar {
+				width: 20%;
+				background-color: #101822;
+				padding: 15px;
+				border-right: 1px solid #c7d5e0;
+				overflow-y: auto;
+				scrollbar-width: thin;
+				/* Firefox: 设置滚动条宽度为细 */
+				scrollbar-color: #66c0f4 #2a475e;
+				/* Firefox: 设置滚动条颜色，thumb(滚动块)和track(背景) */
+			}
+
+			.sidebar h2 {
+				font-size: 1.2rem;
+				margin-bottom: 10px;
+			}
+
+			.search-container {
+				margin-bottom: 15px;
+			}
+
+			.sidebar input[type="text"] {
+				width: 100%;
+				padding: 16px;
+				border: 1px solid #c7d5e0;
+				border-radius: 5px;
+				background-color: #2a475e;
+				color: #c7d5e0;
+			}
+
+			.sidebar input[type="text"]::placeholder {
+				color: #c7d5e0;
+			}
+
+			.sidebar ul {
+				list-style: none;
+				padding-left: 0;
+			}
+
+			.sidebar ul li {
+				margin: 10px 0;
+			}
+
+			.sidebar ul li a {
+				display: inline-block;
+				/* 使每个标题像按钮 */
+				padding: 16px 24px;
+				/* 调整内边距 */
+				border: 1px solid #66c0f4;
+				/* 边框颜色 */
+				border-radius: 5px;
+				/* 圆角 */
+				background-color: #2a475e;
+				/* 背景色 */
+				color: #c7d5e0;
+				/* 字体颜色 */
+				text-decoration: none;
+				/* 移除下划线 */
+				transition: all 0.3s ease;
+				/* 添加过渡效果 */
+			}
+
+			.sidebar ul li a:hover {
+				background-color: #66c0f4;
+				/* 鼠标悬停时背景色 */
+				color: #101822;
+				/* 悬停时字体颜色 */
+				border-color: #101822;
+				/* 悬停时边框颜色 */
+			}
+
+			.sidebar ul li ul {
+				margin-top: 5px;
+				margin-left: 15px;
+				list-style: none;
+				display: none;
+				/* Initially hide subcategories */
+			}
+
+			.sidebar ul li ul li a {
+				display: inline-block;
+				/* 使每个标题像按钮 */
+				padding: 8px 12px;
+				/* 调整内边距 */
+				border: 1px solid #66c0f4;
+				/* 边框颜色 */
+				border-radius: 5px;
+				/* 圆角 */
+				background-color: #2a475e;
+				/* 背景色 */
+				color: #c7d5e0;
+				/* 字体颜色 */
+				text-decoration: none;
+				/* 移除下划线 */
+				transition: all 0.3s ease;
+				/* 添加过渡效果 */
+			}
+
+			.sidebar ul li ul li a:hover {
+				background-color: #66c0f4;
+				/* 鼠标悬停时背景色 */
+				color: #101822;
+				/* 悬停时字体颜色 */
+				border-color: #101822;
+				/* 悬停时边框颜色 */
+			}
+
+			.sidebar ul li.expanded>ul {
+				display: block;
+				/* Show when expanded */
+			}
+
+			.content {
+				width: 80%;
+				padding: 20px;
+				overflow-y: auto;
+			}
+
+			.content h2 {
+				font-size: 1.5rem;
+				color: #66c0f4;
+				margin-bottom: 15px;
+			}
+
+			.content p {
+				font-size: 1rem;
+				line-height: 1.6;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>两情若是久长时，又岂在朝朝暮暮</h1>
+		</header>
+
+		<div class="container">
+			<aside class="sidebar">
+				<h2>合集分类</h2>
+				<div class="search-container">
+					<input type="text" id="searchInput" placeholder="在此输入..." onkeyup="filterCategories()">
+				</div>
+				<ul id="categoryList">
+					<li>
+						<a href="#" onclick="toggleCategory(event)">博客文章</a>
+						<ul>
+							<li><a href="#" onclick="showGameInfo('博客01')">win10重做系统</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" onclick="toggleCategory(event)">R18</a>
+						<ul>
+							<li><a href="#" onclick="showGameInfo('huawen1')">花吻1</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" onclick="toggleCategory(event)">校园类</a>
+						<ul>
+							<li><a href="#" onclick="showGameInfo('wushangdebaiheling')">屋上的百合灵</a></li>
+							<li><a href="#" onclick="showGameInfo('hauwen1')">花吻1</a></li>
+							<li><a href="#" onclick="showGameInfo('FLOWERSchun')">FLOWERS春</a></li>
+							<li><a href="#" onclick="showGameInfo('FLOWERSxia')">FLOWERS夏</a></li>
+							<li><a href="#" onclick="showGameInfo('FLOWERSqiu')">FLOWERS秋</a></li>
+							<li><a href="#" onclick="showGameInfo('FLOWERSdong')">FLOWERS冬</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" onclick="toggleCategory(event)">FLOWERS系列</a>
+						<ul>
+							<li><a href="#" onclick="showGameInfo('FLOWERSchun')">FLOWERS春</a></li>
+							<li><a href="#" onclick="showGameInfo('FLOWERSxia')">FLOWERS夏</a></li>
+							<li><a href="#" onclick="showGameInfo('FLOWERSqiu')">FLOWERS秋</a></li>
+							<li><a href="#" onclick="showGameInfo('FLOWERSdong')">FLOWERS冬</a></li>
+						</ul>
+					</li>
+				</ul>
+			</aside>
+
+			<main class="content" id="gameContent">
+				<h2>框架样式是gpt写的html没有什么技术含量，主要是做个整理顺带当做自己的博客</h2>
+			</main>
+		</div>
+
+		<script>
+			// 信息
+			const gameData = {
+				'博客01': {
+					title: '第一篇博客',
+					description: '测试文章',
+				},
+				'huawen1': {
+					title: '花吻在上1',
+					//这个符号`是反引号才能换行
+					  description: `
+					      <p>这是一个浪漫的视觉小说，讲述了少女和少女之间的爱情故事。</p>
+					      <br>
+					      <img src="path/to/huawen1-image.jpg" alt="花吻1 游戏图片" style="max-width: 100%; height: auto; border-radius: 8px;">
+					      <br><br>
+					      <video controls style="max-width: 100%; height: auto; border-radius: 8px;">
+					        <source src="https://www.example.com/video/huawen1.mp4" type="video/mp4">
+					        您的浏览器不支持视频播放。
+					      </video>
+					    `,
+				},
+				'wushangdebaiheling': {
+					title: 'wushangdebaiheling',
+					description: 'wushangdebaihelingwushangdebaihelingwushangdebaiheling',
+				},
+				'FLOWERSchun': {
+					title: 'FLOWERSchun',
+					description: 'FLOWERSchunFLOWERSchunFLOWERSchunFLOWERSchunFLOWERSchunFLOWERSchun',
+				},
+				'FLOWERSxia': {
+					title: 'FLOWERSxia',
+					description: 'FLOWERSxiaFLOWERSxiaFLOWERSxiaFLOWERSxiaFLOWERSxiaFLOWERSxiaFLOWERSxia',
+				},
+				'FLOWERSqiu': {
+					title: 'FLOWERSqiu',
+					description: 'FLOWERSqiuFLOWERSqiuFLOWERSqiuFLOWERSqiuFLOWERSqiuFLOWERSqiuFLOWERSqiuFLOWERSqiu',
+				},
+				'FLOWERSdong': {
+					title: 'FLOWERSdong',
+					description: 'FLOWERSdongFLOWERSdongFLOWERSdongFLOWERSdongFLOWERSdongFLOWERSdongFLOWERSdongFLOWERSdong',
+				},
+			};
+
+			// 显示对应游戏的信息
+			function showGameInfo(game) {
+				const content = document.getElementById('gameContent');
+				const gameInfo = gameData[game];
+
+				if (gameInfo) {
+					content.innerHTML = `
+          <h2>${gameInfo.title}</h2>
+          <p>${gameInfo.description}</p>
+        `;
+				} else {
+					content.innerHTML = '<h2>Game not found</h2>';
+				}
+			}
+
+			// 筛选左侧导航栏
+			function filterCategories() {
+				const input = document.getElementById('searchInput').value.toLowerCase();
+				const items = document.querySelectorAll('#categoryList > li');
+
+				items.forEach(item => {
+					const text = item.textContent.toLowerCase();
+					item.style.display = text.includes(input) ? '' : 'none';
+				});
+			}
+
+			// 展开/收起分类
+			function toggleCategory(event) {
+				event.preventDefault();
+				const parentLi = event.target.parentElement;
+				parentLi.classList.toggle('expanded');
+			}
+		</script>
+	</body>
+</html>
